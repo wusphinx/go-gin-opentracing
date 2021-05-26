@@ -1,17 +1,27 @@
 package ginopentracing
 
 import (
+	"strings"
+
 	"github.com/gin-gonic/gin"
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 )
 
 // OpenTracer - middleware that addes opentracing
-func OpenTracer(operationPrefix []byte) gin.HandlerFunc {
+func OpenTracer(operationPrefix []byte, skipPath ...string) gin.HandlerFunc {
 	if operationPrefix == nil {
 		operationPrefix = []byte("api-request-")
 	}
 	return func(c *gin.Context) {
+		path := c.Request.URL.Path
+		for _, sp := range skipPath {
+			if strings.HasSuffix(path, sp) {
+				c.Next()
+				return
+			}
+		}
+
 		// all before request is handled
 		var span opentracing.Span
 		if cspan, ok := c.Get("tracing-context"); ok {
