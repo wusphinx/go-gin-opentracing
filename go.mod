@@ -4,8 +4,7 @@ go 1.14
 
 require (
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
-	github.com/gin-gonic/gin v1.6.3
-	github.com/go-playground/validator/v10 v10.3.0 // indirect
+	github.com/gin-gonic/gin v1.7.2
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/matryer/is v1.2.0
 	github.com/opentracing/opentracing-go v1.1.0
